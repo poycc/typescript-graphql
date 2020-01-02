@@ -1,12 +1,19 @@
-import * as fs from 'fs';
+/* eslint-disable import/no-dynamic-require */
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { resolve } from 'path';
 import { ApolloServer, gql } from 'apollo-server-koa';
+
+import fs = require('fs');
+
+const allCustomScalars = require('./scalars/index.ts');
 
 const defaultPath = resolve(__dirname, '../components/');
 const typeDefFileName = 'schema.ts';
 const resolverFileName = 'resolver.ts';
 
 const linkSchema = gql`
+  scalar Date
+
   type Query {
     _: Boolean
   }
@@ -22,7 +29,7 @@ const linkSchema = gql`
 
 function generateTypeDefsAndResolvers() {
   const typeDefs = [linkSchema];
-  const resolvers: any = {};
+  const resolvers = { ...allCustomScalars };
 
   const generateAllComponentRecursive = (path = defaultPath) => {
     const list = fs.readdirSync(path);
@@ -36,7 +43,7 @@ function generateTypeDefsAndResolvers() {
       if (isDir) {
         generateAllComponentRecursive(resolverPath);
       } else if (isFile && item === typeDefFileName) {
-        const schema = require(resolverPath);
+        const { schema } = require(resolverPath);
 
         typeDefs.push(schema);
       } else if (isFile && item === resolverFileName) {
@@ -63,10 +70,12 @@ const apolloServerOptions = {
     code: error.extensions.code,
     message: error.message,
   }),
+  context: (request: any) => ({ ...request }),
   introspection: !isProd,
   playground: !isProd,
-  mocks: false,
+  mocks: !isProd,
 };
 
 const apolloServer = new ApolloServer({ ...apolloServerOptions });
+
 export default apolloServer;

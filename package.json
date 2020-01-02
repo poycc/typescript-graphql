@@ -5,28 +5,32 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "serve": "cross-env NODE_ENV=dev ts-node src/server.ts",
-    "start": "nodemon"
+    "serve": "ts-node src/server.ts",
+    "start": "nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anddizu/typescript_graphql.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@types/koa": "^2.11.0",
-    "@types/node": "^12.12.21",
-    "@types/pg": "^7.11.2",
-    "cross-env": "^6.0.3",
-    "nodemon": "^2.0.2",
-    "ts-node": "^8.5.4",
-    "typescript": "^3.7.3"
+  "bugs": {
+    "url": "https://github.com/anddizu/typescript_graphql/issues"
   },
+  "homepage": "https://github.com/anddizu/typescript_graphql#readme",
   "dependencies": {
-    "apollo-server-koa": "^2.9.14",
+    "apollo-server-koa": "^2.9.15",
     "graphql": "^14.5.8",
     "koa": "^2.11.0",
-    "path": "^0.12.7",
-    "pg": "^7.15.1",
-    "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.2.21"
+    "koa-bodyparser": "^4.2.1",
+    "moment": "^2.24.0"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.11.0",
+    "@types/node": "^13.1.2",
+    "nodemon": "^2.0.2",
+    "ts-node": "^8.5.4"
   }
 }

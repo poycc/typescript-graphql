@@ -11,6 +11,7 @@ const resolvers = {
       name: '地球往事',
       price: 66.3,
       status: BookStatus.NORMAL,
+      created: 1199116800000
     }),
   },
 };

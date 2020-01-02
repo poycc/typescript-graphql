@@ -1,7 +1,7 @@
-// src/components/book/schema.js
-const { gql } = require('apollo-server-koa');
+import { gql } from 'apollo-server-koa';
 
 const schema = gql`
+
   enum BookStatus {
     DELETED
     NORMAL
@@ -12,11 +12,12 @@ const schema = gql`
     name: String
     price: Float
     status: BookStatus
+    created: Date
   }
 
   extend type Query {
     book: Book
   }
-`;
+`
 
-module.exports = schema;
+module.exports = { schema }
