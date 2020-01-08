@@ -46,14 +46,15 @@ function generateTypeDefsAndResolvers() {
       if (isDir) {
         generateAllComponentRecursive(resolverPath);
       } else if (isFile && item === typeDefFileName) {
-        const content = fs.readFileSync(
-          resolverPath, 
-          { 
-              encoding: 'utf-8' 
-          }
-      );
+        const content = fs.readFileSync(resolverPath, {
+          encoding: 'utf-8',
+        });
 
-        typeDefs.push(gql`${content}`);
+        typeDefs.push(
+          gql`
+            ${content}
+          `,
+        );
       } else if (isFile && item === resolverFileName) {
         const resolversPerFile = require(resolverPath);
 
