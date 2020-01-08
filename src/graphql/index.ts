@@ -8,7 +8,7 @@ import fs = require('fs');
 const allCustomScalars = require('./scalars/index.ts');
 const allCustomDirectives = require('./directives/index.ts');
 
-const defaultPath = resolve(__dirname, '../modals/');
+const defaultPath = resolve(__dirname, '../modules/');
 const typeDefFileName = 'schema.graphql';
 const resolverFileName = 'resolver.ts';
 

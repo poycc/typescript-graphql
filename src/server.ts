@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import { createConnection } from 'typeorm';
 import apolloServer from './graphql';
 import 'reflect-metadata';
@@ -26,4 +25,4 @@ createConnection()
       ),
     );
   })
-  .catch((error) => console.error('DataBase connect failed: ', error));
+  .catch((error) => console.error('database connect failed: ', error));
