@@ -64,6 +64,12 @@ function generateTypeDefsAndResolvers() {
 
 const isProd = process.env.NODE_ENV === 'production';
 
+const mocks = {
+  Date: () => {
+    return new Date();
+  }
+};
+
 const apolloServerOptions = {
   ...generateTypeDefsAndResolvers(),
   formatError: (error: any) => ({
@@ -73,7 +79,7 @@ const apolloServerOptions = {
   context: (request: any) => ({ ...request }),
   introspection: !isProd,
   playground: !isProd,
-  mocks: !isProd,
+  mocks,
 };
 
 const apolloServer = new ApolloServer({ ...apolloServerOptions });
