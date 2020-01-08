@@ -1,6 +1,6 @@
 import { GraphQLScalarType } from 'graphql';
 
-const moment = require('moment');
+import moment = require('moment');
 const { Kind } = require('graphql/language');
 
 const customScalarDate = new GraphQLScalarType({

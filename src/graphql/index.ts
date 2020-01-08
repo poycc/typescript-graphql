@@ -1,5 +1,3 @@
-/* eslint-disable import/no-dynamic-require */
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { resolve } from 'path';
 import { ApolloServer, gql } from 'apollo-server-koa';
 
