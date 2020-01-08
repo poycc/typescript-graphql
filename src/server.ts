@@ -7,7 +7,7 @@ import bodyParser = require('koa-bodyparser');
 import Koa = require('koa');
 const app = new Koa();
 app.use(bodyParser());
-// app.use(auth());
+app.use((ctx: Koa.BaseContext, next: () => Promise<any>) => auth(ctx, next));
 
 apolloServer.applyMiddleware({ app });
 // alternatively you can get a composed middleware from the apollo server
