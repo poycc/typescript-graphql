@@ -6,6 +6,7 @@ import { ApolloServer, gql } from 'apollo-server-koa';
 import fs = require('fs');
 
 const allCustomScalars = require('./scalars/index.ts');
+const allCustomDirectives = require('./directives/index.ts');
 
 const defaultPath = resolve(__dirname, '../components/');
 const typeDefFileName = 'schema.ts';
@@ -13,6 +14,8 @@ const resolverFileName = 'resolver.ts';
 
 const linkSchema = gql`
   scalar Date
+
+  directive @auth on FIELD_DEFINITION
 
   type Query {
     _: Boolean
@@ -67,7 +70,7 @@ const isProd = process.env.NODE_ENV === 'production';
 const mocks = {
   Date: () => {
     return new Date();
-  }
+  },
 };
 
 const apolloServerOptions = {
@@ -76,10 +79,11 @@ const apolloServerOptions = {
     code: error.extensions.code,
     message: error.message,
   }),
+  schemaDirectives: { ...allCustomDirectives },
   context: (request: any) => ({ ...request }),
   introspection: !isProd,
   playground: !isProd,
-  mocks,
+  mocks: false,
 };
 
 const apolloServer = new ApolloServer({ ...apolloServerOptions });

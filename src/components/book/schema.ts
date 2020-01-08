@@ -16,7 +16,7 @@ const schema = gql`
   }
 
   extend type Query {
-    book: Book
+    book: Book @auth
   }
 `
 
