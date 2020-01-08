@@ -5,6 +5,6 @@ module.exports = {
       url: 'http://localhost:4000/graphql',
     },
   },
-  includes: ['./src/components/**/schema.ts'],
+  includes: ['./src/modals/**/schema.graphql'],
   excludes: ['**/node_modules/**'],
 };
