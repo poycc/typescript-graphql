@@ -9,7 +9,7 @@ const allCustomScalars = require('./scalars/index.ts');
 const allCustomDirectives = require('./directives/index.ts');
 
 const defaultPath = resolve(__dirname, '../components/');
-const typeDefFileName = 'schema.ts';
+const typeDefFileName = 'schema.graphql';
 const resolverFileName = 'resolver.ts';
 
 const linkSchema = gql`
@@ -46,9 +46,14 @@ function generateTypeDefsAndResolvers() {
       if (isDir) {
         generateAllComponentRecursive(resolverPath);
       } else if (isFile && item === typeDefFileName) {
-        const { schema } = require(resolverPath);
+        const content = fs.readFileSync(
+          resolverPath, 
+          { 
+              encoding: 'utf-8' 
+          }
+      );
 
-        typeDefs.push(schema);
+        typeDefs.push(gql`${content}`);
       } else if (isFile && item === resolverFileName) {
         const resolversPerFile = require(resolverPath);
 
