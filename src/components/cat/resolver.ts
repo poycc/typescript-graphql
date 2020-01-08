@@ -1,4 +1,5 @@
 import DataLoader = require('dataloader');
+import CrmuserController from "../../controllers/crmUser";
 
 const foods = [
   { id: 1, name: 'milk' },
@@ -17,22 +18,19 @@ const fakerIO = (arg: any) =>
     setTimeout(() => resolve(arg), 300);
   });
 
-  const getFoodByIds: (ids: any) => Promise<any> = async (ids:any) => {
-    return fakerIO(foods.filter(food => ids.includes(food.id)))
-  }
-  
-  const foodLoader = new DataLoader(ids => getFoodByIds(ids))
-  
-  const getFoodByIdBatching = (foodId: any) => foodLoader.load(foodId)
+const foodLoader = new DataLoader(() => CrmuserController.getCrmuser());
+
+const getFoodByIdBatching = (crmUser) => foodLoader.load(crmUser);
 
 const catResolvers = {
   Query: {
     cats: (parent: any, args: any, context: any, info: any) => cats,
   },
   Cat: {
-    love: async (cat: any, parent: any, args: any, context:any, info: any) => {
-      console.log(parent,args, context, info)
-      return getFoodByIdBatching(cat.foodId)}
+    love: async (cat: any, parent: any, args: any, context: any, info: any) => {
+      console.log(cat)
+      return getFoodByIdBatching('crmUsers');
+    },
   },
 };
 
